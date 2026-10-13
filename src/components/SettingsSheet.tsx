@@ -108,7 +108,7 @@ export function SettingsSheet({ open, shortcutsHighlighted, player, onClose }: S
             <div className="theme-grid">
               {(['system', 'rill', 'deep', 'mist'] as ThemeId[]).map((theme) => (
                 <button key={theme} type="button" className={player.theme === theme ? 'active' : ''} onClick={() => player.setTheme(theme)} aria-pressed={player.theme === theme}>
-                  <i data-theme-swatch={theme} />{theme[0].toUpperCase() + theme.slice(1)}
+                  <i data-theme-swatch={theme} />{{ system: 'System', rill: 'Lavender', deep: 'Deep lilac', mist: 'Lilac mist' }[theme]}
                 </button>
               ))}
             </div>
