@@ -11,6 +11,7 @@ import { useTheme } from './hooks/useTheme';
 import { usePwaUpdate } from './hooks/usePwaUpdate';
 
 const TIMER_OPTIONS = [0, 25, 50, 90];
+const WAVE_BAR_COUNT = 48;
 const BREATH_PATTERNS = {
   calm: { name: 'Calm 4–6', inhale: 4, hold: 0, exhale: 6, description: 'A gentle inhale followed by a longer exhale.' },
   settle: { name: 'Settle 4–4–6', inhale: 4, hold: 4, exhale: 6, description: 'A steady rhythm for arriving in the present moment.' },
@@ -50,6 +51,24 @@ export default function App() {
       : breathPosition < pattern.inhale + pattern.hold + pattern.exhale
         ? { label: 'Exhale', seconds: pattern.inhale + pattern.hold + pattern.exhale - breathPosition, duration: pattern.exhale, className: 'exhale' }
         : { label: 'Rest', seconds: breathCycle - breathPosition, duration: 'rest' in pattern ? pattern.rest : 1, className: 'rest' };
+  const waveEnergy = player.isPlaying
+    ? ({ inhale: 1, hold: 0.82, exhale: 0.52, rest: 0.34 } as const)[breathPhase.className as 'inhale' | 'hold' | 'exhale' | 'rest'] ?? 0.34
+    : 0.26;
+  const waveBars = Array.from({ length: WAVE_BAR_COUNT }, (_, index) => {
+    const angle = (index / WAVE_BAR_COUNT) * Math.PI * 2 - Math.PI / 2;
+    const contour = Math.sin(angle * 3 + breathElapsed * 0.85) * 5 + Math.sin(angle * 7 - breathElapsed * 0.55) * 3;
+    const inner = 114;
+    const length = 8 + waveEnergy * (20 + contour);
+    const outer = inner + Math.max(8, length);
+    return {
+      index,
+      x1: 200 + Math.cos(angle) * inner,
+      y1: 200 + Math.sin(angle) * inner,
+      x2: 200 + Math.cos(angle) * outer,
+      y2: 200 + Math.sin(angle) * outer,
+      opacity: 0.35 + waveEnergy * 0.5,
+    };
+  });
 
   const closePanels = () => {
     setCustomOpen(false);
@@ -123,9 +142,26 @@ export default function App() {
           style={{ '--phase-duration': `${breathPhase.duration}s` } as React.CSSProperties}
           aria-live="polite"
         >
-          <div className="breath-halo" aria-hidden="true">
-            <i className="halo halo-outer" /><i className="halo halo-middle" /><i className="halo halo-core" />
-          </div>
+          <svg className="breath-wave" viewBox="0 0 400 400" aria-hidden="true">
+            <defs>
+              <linearGradient id="breath-wave-gradient" x1="0" y1="0" x2="400" y2="400" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#eadcff" /><stop offset="0.52" stopColor="#b899e4" /><stop offset="1" stopColor="#70508e" />
+              </linearGradient>
+              <radialGradient id="breath-wave-core" cx="34%" cy="28%" r="72%">
+                <stop stopColor="#fffaff" /><stop offset="0.58" stopColor="#e6d6ff" /><stop offset="1" stopColor="#b18cda" />
+              </radialGradient>
+              <filter id="breath-wave-glow" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="0.65" result="blur" />
+                <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+            </defs>
+            <circle className="breath-wave-guide breath-wave-guide-outer" cx="200" cy="200" r="145" />
+            <circle className="breath-wave-guide" cx="200" cy="200" r="114" />
+            <g className="breath-wave-bars" filter="url(#breath-wave-glow)">
+              {waveBars.map((bar) => <line key={bar.index} {...bar} stroke="url(#breath-wave-gradient)" strokeOpacity={bar.opacity} />)}
+            </g>
+            <circle className="breath-wave-core" cx="200" cy="200" r="86" />
+          </svg>
           <div className="breath-instruction">
             <span>{player.isPlaying ? breathPhase.label : player.timer.status === 'completed' ? 'Complete' : 'Ready'}</span>
             <strong>{player.isPlaying ? breathPhase.seconds : '—'}</strong>
