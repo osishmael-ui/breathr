@@ -154,7 +154,7 @@ button { color: inherit; }
 .error { color: #8c3d39; font-size: 13px; }
 
 .controls-card { margin-top: 32px; padding: 10px; border: 1px solid var(--surface-border); border-radius: 28px; background: var(--surface); box-shadow: 0 24px 70px var(--shadow); backdrop-filter: blur(20px); }
-.sound-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 7px; }
+.sound-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 270px)); justify-content: center; gap: 7px; }
 .breath-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-bottom: 8px; }
 .breath-option { min-height: 57px; padding: 11px 14px; border: 1px solid transparent; border-radius: 17px; cursor: pointer; color: var(--muted); background: transparent; text-align: left; transition: .2s ease; }
 .breath-option:hover { background: rgba(255,255,255,.48); }
@@ -283,7 +283,7 @@ footer { position: relative; z-index: 1; display: flex; align-items: center; jus
   .orb-wrap { margin-top: 18px; }
   .controls-card { padding: 8px; }
   .breath-grid { grid-template-columns: 1fr; }
-  .sound-grid { grid-template-columns: repeat(2, 1fr); }
+  .sound-grid { grid-template-columns: minmax(0, 360px); }
   .control-row { align-items: stretch; flex-direction: column; gap: 15px; padding-top: 14px; }
   .volume-control label { width: 100%; }
   .timer-control { justify-content: center; }

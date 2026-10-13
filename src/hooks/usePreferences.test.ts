@@ -2,6 +2,10 @@ import { describe, expect, it } from 'vitest';
 import { DEFAULT_PREFERENCES, parsePreferences } from './usePreferences';
 
 describe('parsePreferences', () => {
+  it('uses deep lilac as the default theme', () => {
+    expect(DEFAULT_PREFERENCES.theme).toBe('deep');
+  });
+
   it('migrates the original preference shape', () => {
     const migrated = parsePreferences(JSON.stringify({ soundId: 'arrive', volume: 72, timerMinutes: 25 }));
     expect(migrated).toMatchObject({ version: 3, soundId: 'arrive', volume: 72, timerMinutes: 25, binauralPreset: 'off' });

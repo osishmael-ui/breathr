@@ -25,7 +25,7 @@ export const DEFAULT_PREFERENCES: PlayerPreferences = {
     autoStartFocus: false,
         breakAudio: 'recover',
   },
-  theme: 'system',
+  theme: 'deep',
   keepAwake: false,
   binauralPreset: 'off',
 };
