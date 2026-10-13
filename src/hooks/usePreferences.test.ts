@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { DEFAULT_PREFERENCES, parsePreferences } from './usePreferences';
 
 describe('parsePreferences', () => {
-  it('uses deep lilac as the default theme', () => {
+  it('uses deep blue as the default theme', () => {
     expect(DEFAULT_PREFERENCES.theme).toBe('deep');
   });
 

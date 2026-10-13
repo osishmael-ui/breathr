@@ -4,17 +4,17 @@ export const SOUND_PRESETS: Record<SoundId, SoundPreset> = {
   restore: {
     id: 'restore', name: 'Restore', eyebrow: 'Soft landing',
     description: 'A gentle sound bed for arriving in the room and letting your shoulders drop.',
-    warmth: '#7c9fbe',
+    warmth: '#73b9e6',
   },
   arrive: {
     id: 'arrive', name: 'Arrive', eyebrow: 'Steady current',
     description: 'A grounded track for settling into an even, comfortable breath.',
-    warmth: '#78b7ad',
+    warmth: '#61addb',
   },
   downshift: {
     id: 'downshift', name: 'Downshift', eyebrow: 'Deep release',
     description: 'A slower, spacious track to accompany longer exhales and a quieter mind.',
-    warmth: '#a68fbd',
+    warmth: '#9bd2ef',
   },
 };
 

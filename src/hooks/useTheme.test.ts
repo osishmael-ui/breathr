@@ -9,7 +9,7 @@ describe('useTheme', () => {
     document.head.appendChild(meta);
     renderHook(() => useTheme('mist'));
     expect(document.documentElement.dataset.theme).toBe('mist');
-    expect(meta).toHaveAttribute('content', '#f4edfd');
+    expect(meta).toHaveAttribute('content', '#edf8fd');
     meta.remove();
   });
 });

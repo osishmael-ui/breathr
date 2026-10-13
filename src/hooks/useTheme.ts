@@ -15,7 +15,7 @@ export function useTheme(theme: ThemeId) {
 
   useEffect(() => {
     document.documentElement.dataset.theme = resolvedTheme;
-    const colors = { rill: '#eee8fa', deep: '#251936', mist: '#f4edfd' };
+    const colors = { rill: '#e8f4fb', deep: '#12364f', mist: '#edf8fd' };
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', colors[resolvedTheme]);
   }, [resolvedTheme]);
 

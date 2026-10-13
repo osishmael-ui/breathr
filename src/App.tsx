@@ -142,10 +142,10 @@ export default function App() {
           <svg className="breath-wave" viewBox="0 0 400 400" aria-hidden="true">
             <defs>
               <linearGradient id="breath-wave-gradient" x1="0" y1="0" x2="400" y2="400" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#eadcff" /><stop offset="0.52" stopColor="#b899e4" /><stop offset="1" stopColor="#70508e" />
+                <stop stopColor="#e3f6ff" /><stop offset="0.52" stopColor="#8dc9e8" /><stop offset="1" stopColor="#397ca5" />
               </linearGradient>
               <radialGradient id="breath-wave-core" cx="34%" cy="28%" r="72%">
-                <stop stopColor="#fffaff" /><stop offset="0.58" stopColor="#e6d6ff" /><stop offset="1" stopColor="#b18cda" />
+                <stop stopColor="#fbfeff" /><stop offset="0.58" stopColor="#d6effb" /><stop offset="1" stopColor="#91c8e4" />
               </radialGradient>
               <filter id="breath-wave-glow" x="-30%" y="-30%" width="160%" height="160%">
                 <feGaussianBlur stdDeviation="0.65" result="blur" />
