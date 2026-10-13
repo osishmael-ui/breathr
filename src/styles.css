@@ -125,7 +125,7 @@ button { color: inherit; }
 .halo-core { width: 52%; height: 52%; background: radial-gradient(circle at 34% 28%, color-mix(in srgb, white 70%, var(--active-tone)), var(--orb-start) 55%, var(--orb-end)); box-shadow: 0 26px 62px var(--shadow), inset 0 1px rgba(255,255,255,.45); transform: scale(.78); }
 .breath-instruction { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--orb-text); pointer-events: none; }
 .breath-instruction > span { color: color-mix(in srgb, var(--orb-text) 70%, transparent); font: 600 10px/1 'Manrope'; letter-spacing: .2em; text-transform: uppercase; }
-.breath-instruction strong { min-width: 45px; color: var(--orb-text); font: 500 56px/.9 'Newsreader', serif; letter-spacing: -.05em; font-variant-numeric: tabular-nums; }
+.breath-instruction strong { min-width: 45px; color: var(--orb-text); font: 500 52px/.9 'Manrope', 'DM Sans', system-ui, sans-serif; letter-spacing: -.07em; font-variant-numeric: tabular-nums; }
 .breath-instruction small { color: color-mix(in srgb, var(--orb-text) 78%, transparent); font: 500 10px/1 'Manrope'; letter-spacing: .12em; text-transform: uppercase; }
 .orb-wrap.is-playing.inhale .halo-outer { opacity: .62; transform: scale(1); }
 .orb-wrap.is-playing.inhale .halo-middle { opacity: .74; transform: scale(1); }

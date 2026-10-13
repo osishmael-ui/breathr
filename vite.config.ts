@@ -20,7 +20,7 @@ function seoAssets(): Plugin {
         if (!context.bundle) return transformedHtml;
 
         const tags = Object.values(context.bundle)
-          .filter((output) => output.type === 'asset' && /(?:dm-sans-latin-400-normal|manrope-latin-500-normal|newsreader-latin-400-italic).*\.woff2$/.test(output.fileName))
+          .filter((output) => output.type === 'asset' && /(?:dm-sans-latin-400-normal|manrope-latin-500-normal).*\.woff2$/.test(output.fileName))
           .map((output) => ({
             tag: 'link',
             attrs: { rel: 'preload', href: `/${output.fileName}`, as: 'font', type: 'font/woff2', crossorigin: '' },
