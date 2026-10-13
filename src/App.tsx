@@ -44,12 +44,12 @@ export default function App() {
   const breathCycle = pattern.inhale + pattern.hold + pattern.exhale + ('rest' in pattern ? pattern.rest : 0);
   const breathPosition = breathElapsed % breathCycle;
   const breathPhase = breathPosition < pattern.inhale
-    ? { label: 'Inhale', seconds: pattern.inhale - breathPosition, className: 'inhale' }
+    ? { label: 'Inhale', seconds: pattern.inhale - breathPosition, duration: pattern.inhale, className: 'inhale' }
     : breathPosition < pattern.inhale + pattern.hold
-      ? { label: 'Hold', seconds: pattern.inhale + pattern.hold - breathPosition, className: 'hold' }
+      ? { label: 'Hold', seconds: pattern.inhale + pattern.hold - breathPosition, duration: pattern.hold, className: 'hold' }
       : breathPosition < pattern.inhale + pattern.hold + pattern.exhale
-        ? { label: 'Exhale', seconds: pattern.inhale + pattern.hold + pattern.exhale - breathPosition, className: 'exhale' }
-        : { label: 'Rest', seconds: breathCycle - breathPosition, className: 'rest' };
+        ? { label: 'Exhale', seconds: pattern.inhale + pattern.hold + pattern.exhale - breathPosition, duration: pattern.exhale, className: 'exhale' }
+        : { label: 'Rest', seconds: breathCycle - breathPosition, duration: 'rest' in pattern ? pattern.rest : 1, className: 'rest' };
 
   const closePanels = () => {
     setCustomOpen(false);
@@ -118,14 +118,25 @@ export default function App() {
           <p>Choose a rhythm, press play, and let your breathing lead you back to the present.</p>
         </div>
 
-        <div className={`orb-wrap ${player.isPlaying ? 'is-playing' : ''} ${breathPhase.className}`}>
-          <div className="orb-ripple ripple-one" /><div className="orb-ripple ripple-two" />
-          <button className="play-orb" type="button" onClick={player.toggle} aria-label={playLabel}>
-            <span className="orb-label">{player.isPlaying ? breathPhase.label : player.timer.status === 'completed' ? 'Complete' : 'Ready'}</span>
-            {player.status === 'starting' ? <span className="loader" /> : player.isPlaying || silentRunningBreak ? <Pause size={42} fill="currentColor" /> : <Play size={42} fill="currentColor" />}
-            <span className="orb-sound">{player.isPlaying ? `${breathPhase.seconds}s` : pattern.name}</span>
-          </button>
+        <div
+          className={`orb-wrap ${player.isPlaying ? 'is-playing' : ''} ${breathPhase.className}`}
+          style={{ '--phase-duration': `${breathPhase.duration}s` } as React.CSSProperties}
+          aria-live="polite"
+        >
+          <div className="breath-halo" aria-hidden="true">
+            <i className="halo halo-outer" /><i className="halo halo-middle" /><i className="halo halo-core" />
+          </div>
+          <div className="breath-instruction">
+            <span>{player.isPlaying ? breathPhase.label : player.timer.status === 'completed' ? 'Complete' : 'Ready'}</span>
+            <strong>{player.isPlaying ? breathPhase.seconds : '—'}</strong>
+            <small>{player.isPlaying ? 'seconds' : pattern.name}</small>
+          </div>
         </div>
+
+        <button className="session-toggle" type="button" onClick={player.toggle} aria-label={playLabel}>
+          {player.status === 'starting' ? <span className="loader" /> : player.isPlaying || silentRunningBreak ? <Pause size={16} fill="currentColor" /> : <Play size={16} fill="currentColor" />}
+          <span>{player.isPlaying || silentRunningBreak ? 'Pause session' : `Begin ${pattern.name}`}</span>
+        </button>
 
         <div className="time-readout" aria-live="polite"><span>{player.formattedTime}</span><small>{player.timerCaption}</small></div>
         <BinauralStatus presetId={player.binauralPreset} playing={player.isPlaying} />
