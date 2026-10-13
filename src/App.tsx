@@ -51,14 +51,11 @@ export default function App() {
       : breathPosition < pattern.inhale + pattern.hold + pattern.exhale
         ? { label: 'Exhale', seconds: pattern.inhale + pattern.hold + pattern.exhale - breathPosition, duration: pattern.exhale, className: 'exhale' }
         : { label: 'Rest', seconds: breathCycle - breathPosition, duration: 'rest' in pattern ? pattern.rest : 1, className: 'rest' };
-  const waveEnergy = player.isPlaying
-    ? ({ inhale: 1, hold: 0.82, exhale: 0.52, rest: 0.34 } as const)[breathPhase.className as 'inhale' | 'hold' | 'exhale' | 'rest'] ?? 0.34
-    : 0.26;
   const waveBars = Array.from({ length: WAVE_BAR_COUNT }, (_, index) => {
     const angle = (index / WAVE_BAR_COUNT) * Math.PI * 2 - Math.PI / 2;
-    const contour = Math.sin(angle * 3 + breathElapsed * 0.85) * 5 + Math.sin(angle * 7 - breathElapsed * 0.55) * 3;
+    const contour = Math.sin(angle * 3) * 5 + Math.sin(angle * 7) * 3;
     const inner = 114;
-    const length = 8 + waveEnergy * (20 + contour);
+    const length = 18 + contour;
     const outer = inner + Math.max(8, length);
     return {
       index,
@@ -66,7 +63,7 @@ export default function App() {
       y1: 200 + Math.sin(angle) * inner,
       x2: 200 + Math.cos(angle) * outer,
       y2: 200 + Math.sin(angle) * outer,
-      opacity: 0.35 + waveEnergy * 0.5,
+      opacity: 0.6,
     };
   });
 
