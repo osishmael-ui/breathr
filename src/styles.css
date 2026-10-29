@@ -199,6 +199,8 @@ footer { position: relative; z-index: 1; display: flex; align-items: center; jus
 .about-content section a { color: var(--ink); text-underline-offset: 3px; }
 .feedback-link { grid-column: 1 / -1; margin: 0; padding-top: 17px; border-top: 1px solid var(--line); font-size: 11px; text-align: center; }
 .feedback-link a { color: var(--ink); font-weight: 600; text-underline-offset: 3px; }
+.about-copyright { grid-column: 1 / -1; margin: -14px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; text-align: center; }
+.about-copyright a { color: inherit; text-underline-offset: 3px; }
 
 .update-toast { position: fixed; z-index: 5; right: 22px; bottom: 22px; display: flex; align-items: center; gap: 18px; max-width: min(460px, calc(100vw - 36px)); padding: 14px 15px 14px 18px; border: 1px solid rgba(255,255,255,.18); border-radius: 18px; color: #f5fbff; background: #194968; box-shadow: 0 20px 60px rgba(10,39,58,.3); font-size: 12px; }
 .update-toast span { line-height: 1.45; }
