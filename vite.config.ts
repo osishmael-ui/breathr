@@ -80,7 +80,7 @@ function seoAssets(): Plugin {
           '## Links',
           '',
           `- [Use Breathr](${siteUrl}/): Start a breathing session.`,
-          '- [Feedback](mailto:os@osishmael.com): Send product feedback.',
+          '- [Feedback](mailto:info@2ndbell.com): Send product feedback.',
           '',
         ].join('\n'),
       });

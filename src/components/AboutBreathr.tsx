@@ -27,7 +27,12 @@ export function AboutBreathr() {
           <h2>Does it cost anything?</h2>
           <p>No. Breathr is a free relaxation tool.</p>
         </section>
-        <p className="feedback-link">Ideas or feedback? <a href="mailto:os@osishmael.com">Email os@osishmael.com</a>.</p>
+        <section>
+          <h2>Part of 2nd Bell.</h2>
+          <p>Breathr is part of the <a href="https://www.2ndbell.com">2nd Bell</a> family of apps.</p>
+        </section>
+        <p className="feedback-link">Ideas or feedback? <a href="mailto:info@2ndbell.com">Email info@2ndbell.com</a>.</p>
+        <p>© {new Date().getFullYear()} <a href="https://www.2ndbell.com">2nd Bell</a> and Os Ishmael.</p>
       </div>
     </details>
   );
