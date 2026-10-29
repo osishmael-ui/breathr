@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Breathr audio diagnostics</title></head>
+<body>
+  <h1>Development audio diagnostics</h1>
+  <p>Use stereo headphones. Start with your device volume low. Playback is rendered at 25% Breathr volume; raise device volume carefully.</p>
+  <label>Soundscape <select id="sound"><option value="arrive">Arrive</option><option value="restore">Restore</option><option value="downshift">Downshift</option></select></label>
+  <label>Preset <select id="preset"><option>delta</option><option>theta</option><option selected>alpha</option><option>beta</option><option>gamma</option></select></label>
+  <label>Listen to <select id="mode"><option value="mixed">Binaural plus ambience</option><option value="binaural">Binaural only</option><option value="left">Left only</option><option value="right">Right only</option><option value="ambient">Ambience only</option></select></label>
+  <button id="play">Render and play 4 seconds</button><button id="stop">Stop</button>
+  <p id="status">Ready.</p>
+  <script type="module" src="./harness.ts"></script>
+</body></html>
