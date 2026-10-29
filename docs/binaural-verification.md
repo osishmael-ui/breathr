@@ -1,0 +1,9 @@
+# Binaural verification
+
+Run `npx playwright install chromium` and `npm run test:audio`. Chromium renders the binaural graph offline at 48 kHz. For testing, decoded copies of the three bundled recordings are routed into the same offline context through a substitute for the HTML audio element; production plays the recordings through the browser's normal media path. Paired renders subtract identical recordings to isolate the binaural layer. The suite checks all five left/right frequency pairs, channel separation, switching, Off, volume, and all 15 preset/recording combinations.
+
+The measured channel peaks matched Delta 219/221 Hz, Theta 217/223 Hz, Alpha 215/225 Hz, Beta 212/228 Hz and Gamma 200/240 Hz. Switching, Off and volume checks passed. Alpha was digitally detectable by subtraction in all three recordings. In the two-second window from 3 to 5 seconds at volume 58, its left-channel RMS relative to the recording was: Arrive -12.14 dB, Restore -12.01 dB and Downshift -12.54 dB. These values are digital levels for this time window, not a psychoacoustic masking measurement; levels change throughout each recording.
+
+To listen, run `npm run dev` and open `/tests/audio/`. Use stereo headphones and start with low device volume. Choose each preset and recording, then compare left only, right only, binaural only, ambience only, and the mix; stop playback before changing options. Playback uses 25% app volume. Disable mono audio, spatial processing and crossfeed when testing channel separation. Gamma's 40 Hz difference may be difficult to perceive as a beat.
+
+The synthetic layer is off by default and uses a 0.045 gain scaled by the existing volume setting, separate from the unchanged recording playback. These measurements establish digital signal generation, not audibility for a listener or scientific efficacy. Human listening, other browsers, hardware and actual media-element output remain to be checked.

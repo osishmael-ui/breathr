@@ -65,4 +65,43 @@ describe('usePlayer completion orchestration', () => {
     expect(audio.setBinaural).toHaveBeenCalledWith('alpha');
     expect(JSON.parse(localStorage.getItem(PREFERENCES_KEY) ?? '{}')).toMatchObject({ binauralPreset: 'alpha' });
   });
+
+  it('keeps the selected profile through pause, resume, volume and off changes', async () => {
+    const { result } = renderHook(() => usePlayer());
+    act(() => result.current.setBinaural('theta'));
+    await act(async () => result.current.toggle());
+    expect(audio.play).toHaveBeenLastCalledWith('arrive', 58, 'theta');
+    act(() => result.current.setVolume(30));
+    expect(audio.setVolume).toHaveBeenLastCalledWith(30);
+    act(() => result.current.toggle());
+    expect(audio.pause).toHaveBeenCalled();
+    await act(async () => result.current.toggle());
+    expect(audio.play).toHaveBeenLastCalledWith('arrive', 30, 'theta');
+    act(() => result.current.setBinaural('off'));
+    expect(audio.setBinaural).toHaveBeenLastCalledWith('off');
+  });
+
+  it.each(['recover', 'silence'] as const)('handles an automatic Pomodoro break with %s audio', async (breakAudio) => {
+    localStorage.setItem(PREFERENCES_KEY, JSON.stringify({
+      binauralPreset: 'gamma',
+      completion: { behavior: 'continue', cue: 'none' },
+      pomodoro: { focusMinutes: 1, shortBreakMinutes: 1, autoStartBreaks: true, autoStartFocus: true, breakAudio },
+    }));
+    const { result } = renderHook(() => usePlayer());
+    act(() => result.current.selectPomodoro());
+    await act(async () => result.current.toggle());
+    await act(async () => { vi.advanceTimersByTime(60_100); await Promise.resolve(); });
+    expect(result.current.timer.phase).toBe('shortBreak');
+    if (breakAudio === 'recover') {
+      expect(audio.play).toHaveBeenLastCalledWith('downshift', 35, 'gamma');
+      act(() => result.current.setVolume(40));
+      expect(audio.setVolume).toHaveBeenLastCalledWith(24);
+    } else {
+      expect(audio.pause).toHaveBeenCalledWith(0.35);
+      expect(result.current.isPlaying).toBe(false);
+    }
+    await act(async () => { vi.advanceTimersByTime(60_100); await Promise.resolve(); });
+    expect(result.current.timer.phase).toBe('focus');
+    expect(audio.play).toHaveBeenLastCalledWith('arrive', breakAudio === 'recover' ? 40 : 58, 'gamma');
+  });
 });

@@ -1,6 +1,6 @@
 import { Bell, Headphones, Keyboard, MonitorUp, Palette, Settings2, Timer, X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
-import { BINAURAL_PRESETS, BINAURAL_PRESET_IDS, binauralLabel } from '../audio/binaural';
+import { BINAURAL_PRESETS, BINAURAL_PRESET_IDS } from '../audio/binaural';
 import type { usePlayer } from '../hooks/usePlayer';
 import type { BinauralPresetId, CompletionBehavior, CompletionCue, ThemeId } from '../types';
 
@@ -23,6 +23,14 @@ const SHORTCUTS = [
   ['?', 'Show shortcuts'],
   ['Esc', 'Close a panel'],
 ];
+
+const BINAURAL_COMPARISONS: Record<Exclude<BinauralPresetId, 'off'>, string> = {
+  delta: 'The smallest difference of the five profiles.',
+  theta: 'A smaller difference than Alpha.',
+  alpha: 'A mid-range difference among the profiles.',
+  beta: 'A larger difference than Alpha.',
+  gamma: 'The largest difference of the five profiles.',
+};
 
 export function SettingsSheet({ open, shortcutsHighlighted, player, onClose }: SettingsSheetProps) {
   const closeButton = useRef<HTMLButtonElement>(null);
@@ -116,9 +124,10 @@ export function SettingsSheet({ open, shortcutsHighlighted, player, onClose }: S
 
           <section className="setting-section">
             <h2><Headphones size={16} /> Binaural layer</h2>
+            <p className="setting-note">Adds a slightly different tone to each ear. You may hear a rhythmic beat; it can be subtle beneath the soundscape.</p>
             <label className="setting-field">
               <span>Beat profile</span>
-              <select data-testid="binaural-preset" value={player.binauralPreset} onChange={(event) => player.setBinaural(event.target.value as BinauralPresetId)}>
+              <select data-testid="binaural-preset" aria-describedby="binaural-profile-description" value={player.binauralPreset} onChange={(event) => player.setBinaural(event.target.value as BinauralPresetId)}>
                 <option value="off">Off</option>
                 {BINAURAL_PRESET_IDS.map((presetId) => {
                   const preset = BINAURAL_PRESETS[presetId];
@@ -126,11 +135,11 @@ export function SettingsSheet({ open, shortcutsHighlighted, player, onClose }: S
                 })}
               </select>
             </label>
-            <p className="setting-note"><Headphones size={14} /> Stereo headphones are required for left/right separation. The layer plays quietly beneath the selected soundscape.</p>
-            <p className="binaural-description" aria-live="polite">
+            <p className="setting-note"><Headphones size={14} /> Use stereo headphones to hear the separate left and right tones.</p>
+            <p id="binaural-profile-description" className="binaural-description" aria-live="polite">
               {player.binauralPreset === 'off'
-                ? 'Off by default. Choose a profile to add a subtle stereo beat.'
-                : `${binauralLabel(BINAURAL_PRESETS[player.binauralPreset])}. Audio profile only; no particular mental-state effect is promised.`}
+                ? 'Off by default. Choose a profile to add the binaural layer.'
+                : `${BINAURAL_PRESETS[player.binauralPreset].beatHz} Hz is the difference between the left and right tones. ${BINAURAL_COMPARISONS[player.binauralPreset]} Try different profiles and choose what sounds comfortable. No particular effect is guaranteed.`}
             </p>
           </section>
 

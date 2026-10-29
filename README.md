@@ -15,7 +15,11 @@ npm run dev
 npm run lint
 npm run build
 npm test
+npx playwright install chromium
+npm run test:audio
 ```
+
+See [binaural verification](docs/binaural-verification.md) for the results and headphone test procedure.
 
 ## Deploy to Vercel
 
@@ -24,6 +28,7 @@ Vercel can deploy this Vite app with `npm run build` and the `dist` output direc
 ## Current product scope
 
 - Three 2ndBell relaxation recordings: Restore, Arrive, and Downshift
+- Optional stereo binaural layer, off by default
 - Guided Calm 4–6, Settle 4–4–6, and Box 4–4–4–4 breathing patterns
 - Flexible and open-ended session timers
 - Configurable Pomodoro cycles and completion cues
