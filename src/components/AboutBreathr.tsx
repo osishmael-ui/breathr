@@ -32,7 +32,7 @@ export function AboutBreathr() {
           <p>Breathr is part of the <a href="https://www.2ndbell.com">2nd Bell</a> family of apps.</p>
         </section>
         <p className="feedback-link">Ideas or feedback? <a href="mailto:info@2ndbell.com">Email info@2ndbell.com</a>.</p>
-        <p>© {new Date().getFullYear()} <a href="https://www.2ndbell.com">2nd Bell</a> and Os Ishmael.</p>
+        <p className="about-copyright">© {new Date().getFullYear()} <a href="https://www.2ndbell.com">2nd Bell</a> and Os Ishmael.</p>
       </div>
     </details>
   );
