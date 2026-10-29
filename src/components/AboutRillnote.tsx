@@ -27,7 +27,7 @@ export function AboutRillnote() {
           <h2>Does it cost anything?</h2>
           <p>No. Rillnote is a free focus tool.</p>
         </section>
-        <p className="feedback-link">Ideas or feedback? <a href="mailto:os@osishmael.com">Email os@osishmael.com</a>.</p>
+        <p className="feedback-link">Ideas or feedback? <a href="mailto:info@2ndbell.com">Email info@2ndbell.com</a>.</p>
       </div>
     </details>
   );
